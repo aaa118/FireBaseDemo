@@ -1,5 +1,6 @@
 package com.example.aaavs.myapplication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -40,6 +41,7 @@ public class SignInPage extends AppCompatActivity implements View.OnClickListene
         etLastName = findViewById(R.id.etLastName1);
 
         findViewById(R.id.btAddInfo).setOnClickListener(this);
+        findViewById(R.id.btGetInfo).setOnClickListener(this);
 
     }
 
@@ -49,7 +51,15 @@ public class SignInPage extends AppCompatActivity implements View.OnClickListene
             case R.id.btAddInfo:
                 addInfo();
                 break;
+            case R.id.btGetInfo:
+                getInfo();
+                break;
         }
+    }
+
+    private void getInfo() {
+        Intent intent1 = new Intent(getApplicationContext(),ListViewCust.class);
+        startActivity(intent1);
     }
 
     private void addInfo() {
