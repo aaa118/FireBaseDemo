@@ -1,11 +1,13 @@
 package com.example.aaavs.myapplication;
 
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 public class SignInPage extends AppCompatActivity implements View.OnClickListener {
     EditText etFirstName,etLastName;
     DatabaseReference mDatabaseReference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class SignInPage extends AppCompatActivity implements View.OnClickListene
 
         findViewById(R.id.btAddInfo).setOnClickListener(this);
         findViewById(R.id.btGetInfo).setOnClickListener(this);
+        findViewById(R.id.constLayout).setOnClickListener(this);
 
     }
 
@@ -54,7 +58,15 @@ public class SignInPage extends AppCompatActivity implements View.OnClickListene
             case R.id.btGetInfo:
                 getInfo();
                 break;
+            case R.id.constLayout:
+                keyboardInput();
+                break;
         }
+    }
+
+    private void keyboardInput() {
+        InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        mInputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
     }
 
     private void getInfo() {

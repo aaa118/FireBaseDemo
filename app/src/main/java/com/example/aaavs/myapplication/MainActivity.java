@@ -7,7 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -29,7 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,View.OnKeyListener {
     FirebaseDatabase mDatabase;
     DatabaseReference mDatabaseReference;
     public static FirebaseAuth mAuth;
@@ -92,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.btLogin1).setOnClickListener(this);
         findViewById(R.id.btSignUp1).setOnClickListener(this);
+        findViewById(R.id.constLayout).setOnClickListener(this);
+        findViewById(R.id.imageView2).setOnClickListener(this);
+
     }
 
     @Override
@@ -117,7 +122,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btSignUp1:
                 signUpMethod();
                 break;
+            case R.id.constLayout:
+                keyboardInput();
+                break;
+            case R.id.imageView2:
+                keyboardInput();
+                break;
         }
+    }
+
+    private void keyboardInput() {
+        InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        mInputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
     }
 
     private void signUpMethod() {
@@ -149,5 +165,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     });
         }
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+            loginMethod();
+        }
+        return false;
     }
 }
