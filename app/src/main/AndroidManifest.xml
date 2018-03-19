@@ -27,6 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUp" />
+        <activity android:name=".HideKeyB"></activity>
         <activity android:name=".SignInPage" />
         <activity android:name=".ListViewCust"></activity>
     </application>

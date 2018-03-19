@@ -34,7 +34,7 @@ public class SignInPage extends AppCompatActivity implements View.OnClickListene
 
         loadView();
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("INfo");
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Info");
 
 
     }
@@ -64,7 +64,7 @@ public class SignInPage extends AppCompatActivity implements View.OnClickListene
         }
     }
 
-    private void keyboardInput() {
+    public void keyboardInput() {
         InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         mInputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
     }
@@ -75,7 +75,7 @@ public class SignInPage extends AppCompatActivity implements View.OnClickListene
     }
 
     private void addInfo() {
-        String fName = etFirstName.getText().toString().trim();
+        String fName = etFirstName. getText().toString().trim();
         String lName = etLastName.getText().toString().trim();
 
         if (!TextUtils.isEmpty(fName)&&!TextUtils.isEmpty(lName))   {
