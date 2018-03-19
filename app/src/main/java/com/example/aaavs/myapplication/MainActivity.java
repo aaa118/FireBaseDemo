@@ -1,5 +1,7 @@
 package com.example.aaavs.myapplication;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
@@ -32,13 +34,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,View.OnKeyListener {
-    FirebaseDatabase mDatabase;
-    DatabaseReference mDatabaseReference;
-    public static FirebaseAuth mAuth;
-    FirebaseAuth.AuthStateListener mAuthListner;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mDatabaseReference;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListner;
     private AdView mAdView;
-    EditText etUsername, etPassword;
+    private EditText etUsername, etPassword;
     private static final String TAG = "MainActivity";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +50,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         loadViews();
+        loadFireBaseObjects();
 
+    }
+
+    private void loadFireBaseObjects() {
         mAdView = findViewById(R.id.adView);
         com.google.android.gms.ads.AdRequest adRequest1 = new com.google.android.gms.ads.AdRequest.Builder().build();
         mAdView.loadAd(adRequest1);
-
-
         MobileAds.initialize(this, "ca-app-pub-4742420110081688~5578894897");
 
         mAuth = FirebaseAuth.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mDatabase.getReference("Name");
-
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -71,8 +76,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-
-
 
         mAuthListner = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -96,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btSignUp1).setOnClickListener(this);
         findViewById(R.id.constLayout).setOnClickListener(this);
         findViewById(R.id.imageView2).setOnClickListener(this);
+
 
     }
 
@@ -131,9 +135,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void keyboardInput() {
-        InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        mInputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+    public void keyboardInput() {
+//        InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//        mInputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+
+
+        HideKeyB.hideKeyboard( MainActivity.this);
+
+
     }
 
     private void signUpMethod() {
